@@ -9,11 +9,11 @@
 
 # What is [ TheBackToHack ] Tool ?:
 
-TheBackToHack she a tool that has been programmed to facilitate penetration for hackers, 
+TheBackToHack a tool that has been programmed to facilitate penetration for hackers, 
 
-And you can do a lot of attacks using them
+And you can do a lot of attacks using it
 
-It has a lot of options that will help you a lot in your Jobs :)
+It has a lot of options that will help you in penetration
 
 # How you Install it
 
@@ -23,32 +23,15 @@ It has a lot of options that will help you a lot in your Jobs :)
 
 3 > run the tool using this command :> ./TheBackToHack
 
-- if your operating system is kali Linux2017.1:
-
- 1 > open tool folder using this comaand :> cd TheBackToHack/
- 
- 2 > type this command :> chmod +x *
- 
-Now you can run the tool without running the installer.sh file because all the tool needs exist in kali linux os
-
-run the tool using this command :> ./TheBackToHack
-
-- if not your os kali linux Please run Installer.sh file using this commands:
-
-    1 >  chmod +x *
-    
-    2 > ./Installer.sh 
-    
-    for install all tool needs :)
                                                                          
                                                                            
 # Note for windows users:
 
-If your os Windows you can using this tool too :)
+If your os Windows you can use this tool too :)
 
-but you cant run installer.sh for install all the tool needs because this file a bash script just for linux
+but you cant run installer.sh you have to install the following tools because this file a bash script just for linux not for windows
 
-But you can download all the needs of the device manually:
+But you can download them manually:
 
 This all tool needs:
 
@@ -69,7 +52,7 @@ click on tool file to run them:)
 
 # Usage:
 
-Just run the tool and see the options, you will find all the examples of options to help you :)
+when you run the tool you will see a lot of options, you will find examples to help you :)
 
 # That's all :)
 

